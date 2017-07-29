@@ -18,7 +18,8 @@ def heroList(request):
 def heroDetail(request, hero_id):
     hero_id = int(hero_id)
     if request.method == 'GET':
-        return serializers.serialize('json', Hero.objects.get(pk=hero_id))
+        hero = Hero.objects.get(id=hero_id)
+        return JsonResponse(dict(hero))
     elif request.method == 'PUT':
         name = json.loads(request.body)['name']
         hero = Hero.objects.get(id=hero_id)
