@@ -7,7 +7,7 @@ def heroList(request):
     if request.method == 'GET':
         return JsonResponse([dict(hero) for hero in Hero.objects.all()], safe=False)
     elif request.method == 'POST':
-        name = json.loads(request.body)['name']
+        name = json.loads(request.body.decode())['name']
         new_hero = Hero(name=name)
         new_hero.save()
         return HttpResponse(status=201) # 'created' response
@@ -21,7 +21,7 @@ def heroDetail(request, hero_id):
         hero = Hero.objects.get(id=hero_id)
         return JsonResponse(dict(hero))
     elif request.method == 'PUT':
-        name = json.loads(request.body)['name']
+        name = json.loads(request.body.decode())['name']
         hero = Hero.objects.get(id=hero_id)
         hero.name = name
         hero.save()

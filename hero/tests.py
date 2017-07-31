@@ -15,7 +15,7 @@ class HeroTestCase(TestCase):
         # Test heroDetail with GET request
         response = self.client.get('/api/hero/1')
 
-        data = json.loads(response.content)
+        data = json.loads(response.content.decode())
         self.assertEqual(data['name'], 'Superman')
         self.assertEqual(response.status_code, 200)
 
@@ -43,7 +43,7 @@ class HeroTestCase(TestCase):
         # Test heroList with GET request
         response = self.client.get('/api/heroes')
 
-        data = json.loads(response.content)
+        data = json.loads(response.content.decode())
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(data), 3)
 
