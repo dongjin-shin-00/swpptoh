@@ -19,6 +19,12 @@ class HeroTestCase(TestCase):
         self.assertEqual(data['name'], 'Superman')
         self.assertEqual(response.status_code, 200)
 
+    def test_hero_detail_get_not_found(self):
+        # Test heroDetail with GET request
+        response = self.client.get('/api/hero/4')
+
+        self.assertEqual(response.status_code, 404)
+
     def test_hero_detail_post(self):
         # Test heroDetail with POST request
         response = self.client.post('/api/hero/1', json.dumps({'name': 'Spiderman'}), content_type='application/json')
@@ -32,12 +38,24 @@ class HeroTestCase(TestCase):
         self.assertEqual(Hero.objects.get(id=1).name, 'Spiderman')
         self.assertEqual(response.status_code, 204)
 
+    def test_hero_detail_put_not_found(self):
+        # Test heroDetail with GET request
+        response = self.client.put('/api/hero/4', json.dumps({'name': 'Spiderman'}), content_type='application/json')
+
+        self.assertEqual(response.status_code, 404)
+
     def test_hero_detail_delete(self):
         # Test heroDetail with DELETE request
         response = self.client.delete('/api/hero/1')
 
         self.assertRaises(Hero.DoesNotExist, Hero.objects.get, id=1)
         self.assertEqual(response.status_code, 204)
+
+    def test_hero_detail_delete_not_found(self):
+        # Test heroDetail with GET request
+        response = self.client.delete('/api/hero/4')
+
+        self.assertEqual(response.status_code, 404)
 
     def test_hero_list_get(self):
         # Test heroList with GET request
