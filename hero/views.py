@@ -1,11 +1,12 @@
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseNotFound, JsonResponse
+from django.forms.models import model_to_dict
 from .models import Hero
 import json
 
 
 def heroList(request):
     if request.method == 'GET':
-        return JsonResponse([dict(hero) for hero in Hero.objects.all()], safe=False)
+        return JsonResponse(list(Hero.objects.all().values()), safe=False)
     elif request.method == 'POST':
         name = json.loads(request.body.decode())['name']
         new_hero = Hero(name=name)
@@ -22,7 +23,7 @@ def heroDetail(request, hero_id):
             hero = Hero.objects.get(id=hero_id)
         except Hero.DoesNotExist:
             return HttpResponseNotFound()
-        return JsonResponse(dict(hero))
+        return JsonResponse(model_to_dict(hero))
     elif request.method == 'PUT':
         name = json.loads(request.body.decode())['name']
         try:

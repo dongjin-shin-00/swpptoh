@@ -6,7 +6,3 @@ class Hero(models.Model):
 
     def __str__(self):
         return self.name
-
-    def __iter__(self):
-        yield 'id', self.id
-        yield 'name', self.name
