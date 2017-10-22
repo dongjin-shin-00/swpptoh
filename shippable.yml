@@ -1,0 +1,18 @@
+language: python
+python:
+  - 3.5
+  - 3.6
+
+env:
+  - DJANGO_VERSION=1.11
+
+build:
+  ci:
+    - pip install Django==$DJANGO_VERSION
+    - pip install coverage
+
+    - mkdir -p shippable/codecoverage # For code coverage
+
+    - python manage.py migrate
+    - coverage run --branch --source='./hero' manage.py test
+    - coverage xml -o shippable/codecoverage/coverage.xml
