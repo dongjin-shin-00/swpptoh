@@ -25,7 +25,7 @@ SECRET_KEY = 'z(k4cyx(^qw%&u!ch$=w51)-ohh3^m2kw*c3)b8*s-$cpinii1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['toh.maro.io', 'maro.io']
+ALLOWED_HOSTS = ['toh.maro.io', 'maro.io', 'localhost']
 
 
 # Application definition

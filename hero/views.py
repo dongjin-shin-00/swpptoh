@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseNotFound, JsonResponse
 from django.forms.models import model_to_dict
+from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Hero
 import json
 
@@ -42,4 +43,3 @@ def heroDetail(request, hero_id):
         return HttpResponse(status=204) # 'No content' response
     else:
         return HttpResponseNotAllowed(['GET', 'PUT', 'DELETE']) # only GET and POST methods are allowed for this url
-
